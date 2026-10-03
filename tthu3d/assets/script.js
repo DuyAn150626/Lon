@@ -391,14 +391,44 @@ selectedLantern = null;
 closeWishBtn.addEventListener("click", closeWishCard);
 wishModal.addEventListener("click", (e) => { if (e.target === wishModal) closeWishCard(); });
 window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeWishCard(); });
-// AUDIO CONTROL
-const bgm = document.getElementById("bgm"); const audioBtn = document.getElementById("audio-btn");
+// ==================== ĐOẠN MÃ ĐIỀU KHIỂN ÂM NHẠC CHUẨN XÁC ====================
+const bgm = document.getElementById("bgm");
+const audioBtn = document.getElementById("audio-btn");
 let isPlaying = false;
+
+// Đảm bảo nhạc chạy mượt trên cả iPhone/Safari bằng cách giảm âm lượng vừa vặn lãng mạn
+bgm.volume = 0.6; 
+
 audioBtn.addEventListener("click", () => {
-if (isPlaying) { bgm.pause(); audioBtn.innerHTML = ''; }
-else { bgm.play().then(() => { audioBtn.innerHTML = ''; }).catch(() => {}); }
-isPlaying = !isPlaying;
+  if (isPlaying) {
+    bgm.pause();
+    audioBtn.innerHTML = '<i class="fas fa-music" style="opacity:0.5;"></i>';
+    isPlaying = false;
+  } else {
+    // Ép trình duyệt kích hoạt phát nhạc dựa trên hành động tương tác click của người dùng
+    bgm.play()
+      .then(() => {
+        audioBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        isPlaying = true;
+      })
+      .catch((error) => {
+        console.log("Trình duyệt chặn Autoplay nhạc: ", error);
+      });
+  }
 });
+
+// TỰ ĐỘNG KÍCH HOẠT NHẠC KHI NGƯỜI DÙNG CLICK BẤT KỲ ĐÂU TRÊN MÀN HÌNH (Để xem lồng đèn)
+window.addEventListener("click", () => {
+  if (!isPlaying) {
+    bgm.play()
+      .then(() => {
+        audioBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        isPlaying = true;
+      })
+      .catch(() => {});
+  }
+}, { once: true }); // Dòng này chỉ chạy duy nhất 1 lần đầu tiên khi chạm vào màn hình
+
 // ANIMATION LOOP
 const clock = new THREE.Clock();
 function animate() {
