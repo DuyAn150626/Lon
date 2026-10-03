@@ -304,7 +304,8 @@ for (let i = 0; i < lanternCount; i++) {
 const { group: lantern, hitMesh } = createLanternMesh();
 const radius = 9 + Math.random() * 25; const angle = Math.random() * Math.PI * 2; const y = -1 + Math.random() * 30;
 lantern.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
-const wishData = wishList[Math.floor(Math.random() * wishList.length)];
+// SỬA LẠI THÀNH DÒNG NÀY ĐỂ CHỮ VÀ ẢNH RẢI ĐỀU 100% CHO CÁC LỒNG ĐÈN
+const wishData = wishList[i % wishList.length];
 lantern.userData = {
 speedY: 0.008 + Math.random() * 0.012, swingSpeed: 0.8 + Math.random() * 1.2,
 initialX: lantern.position.x, initialZ: lantern.position.z, wish: wishData.text, imgUrl: wishData.img, id: i,
