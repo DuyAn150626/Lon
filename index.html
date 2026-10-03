@@ -122,19 +122,26 @@
             font-weight: 600;
             letter-spacing: 1px;
         }
+                /* ĐOẠN CSS MỚI: TỰ ĐỘNG THÍCH ỨNG THEO TỶ LỆ ẢNH GỐC */
         .image-container {
             width: 100%;
-            height: 180px;
+            max-height: 250px; /* Giới hạn chiều cao tối đa để bảng không bị quá dài */
             border-radius: 8px;
             overflow: hidden;
             margin-bottom: 20px;
             border: 1px solid rgba(255,255,255,0.1);
             background: #0f071a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .image-container img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto; /* Giúp ảnh tự co giãn theo chiều dọc mà không bị méo */
+            max-height: 250px;
+            object-fit: contain; /* Giữ nguyên tỷ lệ gốc của ảnh, không bị cắt hay bóp méo */
+        }
+
         }
         #wishText {
             color: #ffffff;
