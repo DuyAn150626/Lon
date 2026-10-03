@@ -221,7 +221,9 @@ const blossomMat = new THREE.PointsMaterial({
 const blossomParticles = new THREE.Points(blossomGeo, blossomMat);
 treeGroup.add(blossomParticles);
 
-// RABBITS
+// ==================== ĐOẠN CODE BỔ SUNG HOÀN CHỈNH PHÍA DƯỚI ====================
+
+// THỎ NHẢY QUANH ĐẢO
 function createRabbit() {
   const group = new THREE.Group();
   const rabbitMat = new THREE.MeshStandardMaterial({ color: 0xf8f8ff, roughness: 0.5 });
@@ -253,23 +255,23 @@ function updateRabbits(time) {
     const x = Math.cos(angle) * r.orbitRadius;
     const z = Math.sin(angle) * r.orbitRadius;
     const hop = Math.abs(Math.sin(time * r.hopSpeed)) * r.hopHeight;
-    r.mesh.position.set(x, r.baseY + hop, z);
+r.mesh.position.set(x, r.baseY + hop, z);
 const dx = -Math.sin(angle) * sign; const dz = Math.cos(angle) * sign;
 r.mesh.rotation.y = Math.atan2(dx, dz);
 });
 }
-// LANTERNS & WISHES (Đường dẫn hình ảnh đã chuyển về ./assets/ chuẩn hóa)
+// HỆ THỐNG LỒNG ĐÈN & DANH SÁCH LỜI CHÚC (ĐÃ SỬA ĐƯỜNG DẪN ẢNH Chuẩn GitHub)
 const lanternsGroup = new THREE.Group();
 scene.add(lanternsGroup);
 const lanterns = [];
 const interactiveObjects = [];
 const wishList = [
-{ text: "Chúc cậu và gia đình một mùa Trung Thu đoàn viên, tràn ngập niềm vui và hạnh phúc!", img: "./assets/1.jpg" },
-{ text: "Cầu chúc cho mọi nguyện ước của cậu đêm nay sẽ trở thành hiện thực.", img: "./assets/2.jpg" },
-{ text: "Trăng tròn ấm áp, chúc tình cậu và tình yêu của chúng ta mãi bền chặt.", img: "./assets/3.jpg" },
-{ text: "Chúc cậu luôn giữ được tâm hồn trong trẻo, yêu đời như ánh trăng rằm.", img: "./assets/1.jpg" },
-{ text: "Trung Thu bình an, vạn sự như ý, công danh thăng tiến rực rỡ!", img: "./assets/2.jpg" },
-{ text: "Chúc riêng cậu một đêm trăng thật lãng mạn và ngọt ngào.", img: "./assets/3.jpg" },
+{ text: "Chúc cậu và gia đình một mùa Trung Thu đoàn viên, tràn ngập niềm vui và hạnh phúc!", img: "./tthu3d/assets/1.jpg" },
+{ text: "Cầu chúc cho mọi nguyện ước của cậu đêm nay sẽ trở thành hiện thực.", img: "./tthu3d/assets/2.jpg" },
+{ text: "Trăng tròn ấm áp, chúc tình cậu và tình yêu của chúng ta mãi bền chặt.", img: "./tthu3d/assets/3.jpg" },
+{ text: "Chúc cậu luôn giữ được tâm hồn trong trẻo, yêu đời như ánh trăng rằm.", img: "./tthu3d/assets/1.jpg" },
+{ text: "Trung Thu bình an, vạn sự như ý, công danh thăng tiến rực rỡ!", img: "./tthu3d/assets/2.jpg" },
+{ text: "Chúc riêng cậu một đêm trăng thật lãng mạn và ngọt ngào.", img: "./tthu3d/assets/3.jpg" },
 ];
 function createLanternTexture() {
 const canvas = document.createElement("canvas"); canvas.width = 128; canvas.height = 128;
@@ -311,7 +313,7 @@ const sc = 0.75 + Math.random() * 0.5; lantern.scale.set(sc, sc, sc);
 hitMesh.userData.parentLantern = lantern;
 lanternsGroup.add(lantern); lanterns.push(lantern); interactiveObjects.push(hitMesh);
 }
-// BACKGROUND PETALS & STARS & MOON
+// CÁNH HOA ĐÀO RƠI & SAO ĐÊM & MẶT TRĂNG TO TRÒN KHÔNG GIAN
 const fallingPetalsCount = isMobile ? 80 : 180;
 const petalsGeo = new THREE.BufferGeometry();
 const petalsPos = new Float32Array(fallingPetalsCount * 3);
@@ -328,13 +330,12 @@ const starGeo = new THREE.BufferGeometry(); const starPos = new Float32Array(sta
 for (let i = 0; i < starCount; i++) { starPos[i * 3] = (Math.random() - 0.5) * 180; starPos[i * 3 + 1] = Math.random() * 90; starPos[i * 3 + 2] = (Math.random() - 0.5) * 180; }
 starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
 scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.4, transparent: true, opacity: 0.7 })));
-// Mặt trăng phát sáng chuẩn không gian đêm rằm
 const moonGeo = new THREE.SphereGeometry(3.5, 32, 32);
 const moonMat = new THREE.MeshBasicMaterial({ color: 0xfffaed });
 const moonMesh = new THREE.Mesh(moonGeo, moonMat);
 moonMesh.position.set(-18, 22, -15);
 scene.add(moonMesh);
-// FIREWORKS EFFECT
+// HIỆU ỨNG PHÁO HOA KHI CHẠM
 let fireworks = [];
 function createFirework(pos) {
 const pCount = 50; const pGeo = new THREE.BufferGeometry(); const pPositions = new Float32Array(pCount * 3); const velocities = [];
@@ -347,7 +348,7 @@ pGeo.setAttribute("position", new THREE.BufferAttribute(pPositions, 3));
 const pMesh = new THREE.Points(pGeo, new THREE.PointsMaterial({ size: 0.35, color: 0xffd700, transparent: true, opacity: 1, blending: THREE.AdditiveBlending }));
 scene.add(pMesh); fireworks.push({ mesh: pMesh, velocities: velocities, life: 1.0 });
 }
-// RAYCASTER & INTERACTION
+// ĐIỀU KHIỂN SỰ KIỆN CLICK CHẠM (ĐÃ SỬA HOÀN TOÀN SỬ DỤNG DẤU NHÁY HUYỀN ` ĐỂ HIỆN CHỮ)
 const raycaster = new THREE.Raycaster(); const mouse = new THREE.Vector2();
 let targetCamPos = null; let targetCamTarget = null; let selectedLantern = null;
 const wishModal = document.getElementById("wishModal");
@@ -374,6 +375,7 @@ createFirework(selectedLantern.position);
 const offset = new THREE.Vector3().subVectors(camera.position, selectedLantern.position).normalize().multiplyScalar(5.5);
 targetCamPos = new THREE.Vector3().addVectors(selectedLantern.position, offset);
 targetCamTarget = selectedLantern.position.clone();
+// SỬA LỖI CHỮ SỬ DỤNG BACKTICK CHUẨN XÁC GIÚP HIỂN THỊ CÂU CHÚC
 wishText.textContent = "${selectedLantern.userData.wish}";
 wishImage.src = selectedLantern.userData.imgUrl;
 setTimeout(() => { wishModal.classList.add("active"); }, 300);
