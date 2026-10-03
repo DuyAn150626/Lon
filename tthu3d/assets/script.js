@@ -376,7 +376,8 @@ const offset = new THREE.Vector3().subVectors(camera.position, selectedLantern.p
 targetCamPos = new THREE.Vector3().addVectors(selectedLantern.position, offset);
 targetCamTarget = selectedLantern.position.clone();
 // SỬA LỖI CHỮ SỬ DỤNG BACKTICK CHUẨN XÁC GIÚP HIỂN THỊ CÂU CHÚC
-wishText.textContent = "${selectedLantern.userData.wish}";
+// DÙNG CHÍNH XÁC THUỘC TÍNH MÀ KHÔNG BỌC QUA BẤT KỲ DẤU NHÁY NÀO
+wishText.textContent = selectedLantern.userData.wish;
 wishImage.src = selectedLantern.userData.imgUrl;
 setTimeout(() => { wishModal.classList.add("active"); }, 300);
 }
