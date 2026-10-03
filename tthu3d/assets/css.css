@@ -160,15 +160,17 @@ html {
   display: block;
 }
 
-/* ĐOẠN CSS MỚI: CHỮ TRẮNG TINH KHÔI, ĐẬM ĐÀ VÀ CÓ BÓNG NỔI BẬT */
-.wish-card p {
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.6;
-  color: #ffffff !important; /* Ép chữ hiển thị màu trắng sáng rực rỡ */
-  font-style: italic;
-  margin-bottom: 15px;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8); /* Tạo bóng đổ sâu để nổi hẳn lên nền tím */
+/* ÉP TOÀN BỘ CÁC THẺ CHỨA CHỮ TRONG MODAL PHẢI RA MÀU TRẮNG */
+.wish-card p, 
+#wishText, 
+.wish-card div {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1.6 !important;
+  color: #ffffff !important; /* Bắt buộc chữ hiện màu trắng rực rỡ */
+  font-style: italic !important;
+  margin-bottom: 15px !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9) !important;
 }
 
 
